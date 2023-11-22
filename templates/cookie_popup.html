@@ -1,0 +1,47 @@
+<!-- jQuery (stelle sicher, dass du es zuvor in deinem Projekt eingebunden hast) -->
+<script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+
+<!-- Dein Cookie-Popup-Code -->
+<div class="container px-4 px-lg-5">
+    <div class="row gx-4 gx-lg-5 justify-content-center">
+      <div class="col-md-10 col-lg-8 col-xl-7">
+        <div id="cookie-popup" class="cookie-popup">
+            <p>Diese Website verwendet Cookies. Durch die Nutzung unserer Dienste erklären Sie sich damit einverstanden.</p>
+            <button id="cookie-accept" class="btn btn-light float-right">Ja, ich stimme zu</button>
+            <button id="cookie-decline" class="btn btn-light float-right">Nein, danke</button>
+            <a class="btn btn-light float-right" href="{{ url_for('datenschutz', filename='datenschutzbestimmungen.html') }}">Datenschutzbestimmungen</a>
+        </div>
+      </div>
+    </div>
+</div>
+
+
+<!-- JavaScript, um das Popup zu schließen -->
+<script>
+    // Warte bis das Dokument vollständig geladen ist
+    $(document).ready(function() {
+        // Überprüfe, ob der Benutzer bereits zugestimmt oder abgelehnt hat
+        var cookiesAccepted = localStorage.getItem('cookiesAccepted');
+
+        // Wenn der Benutzer noch nicht zugestimmt oder abgelehnt hat, zeige das Popup
+        if (cookiesAccepted === null) {
+            $('#cookie-popup').show();
+        }
+
+        // Wenn der Benutzer auf "Ja" klickt
+        $('#cookie-accept').click(function() {
+            // Speichere den Zustimmungsstatus lokal
+            localStorage.setItem('cookiesAccepted', 'true');
+            // Verstecke das Popup
+            $('#cookie-popup').hide();
+        });
+
+        // Wenn der Benutzer auf "Nein" klickt
+        $('#cookie-decline').click(function() {
+            // Speichere den Ablehnungsstatus lokal
+            localStorage.setItem('cookiesAccepted', 'false');
+            // Verstecke das Popup
+            $('#cookie-popup').hide();
+        });
+    });
+</script>
